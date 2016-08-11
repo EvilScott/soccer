@@ -17,6 +17,7 @@ ALTER TABLE matches RENAME COLUMN away_team_api_id TO away_team_id;
 ALTER TABLE player RENAME TO players;
 ALTER TABLE players DROP COLUMN id;
 ALTER TABLE players RENAME COLUMN player_api_id to id;
+ALTER TABLE players RENAME COLUMN player_name to name;
 ALTER TABLE players ADD PRIMARY KEY (id);
 
 ALTER TABLE player_stats RENAME COLUMN player_api_id TO player_id;

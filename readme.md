@@ -18,3 +18,6 @@ WHERE l.name = 'England Premier League'
       AND s.name = '2015/2016'
 ORDER BY m.date
 ```
+
+TODOs:
+* add many to many players to models

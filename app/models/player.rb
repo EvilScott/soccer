@@ -1,3 +1,3 @@
 class Player < ActiveRecord::Base
-  self.table_name = 'player'
+  has_one :player_stat
 end
