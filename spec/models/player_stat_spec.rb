@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe PlayerStat, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:player_stat) { build :test_player_stat }
+
+  it 'has a player' do
+    expect(player_stat.player).to be_a Player
+  end
 end

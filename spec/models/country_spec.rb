@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Country, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:country) { build :test_country }
+
+  it 'has a league' do
+    expect(country.league).to be_a League
+  end
 end
