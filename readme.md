@@ -1,7 +1,7 @@
 ## Soccer on Rails
-Data source: https://www.kaggle.com/hugomathien/soccer
+Run the Rake task after grabbing the [data source](https://www.kaggle.com/hugomathien/soccer) and putting it here: `db/soccer.sqlite`
 ```bash
-$ pgloader db/soccer.load 
+$ rake db:rebuild 
 ```
 
 Test query with cleaned up data:
