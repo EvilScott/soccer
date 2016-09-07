@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/leagues', to: 'leagues#index'
+  get '/league/:league_slug', to: 'leagues#show'
+  get '/league/:league_slug/teams', to: 'teams#index'
+  get '/league/:league_slug/team/:team_slug', to: 'teams#show'
 end

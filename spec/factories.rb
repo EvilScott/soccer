@@ -1,4 +1,6 @@
 FactoryGirl.define do
+  sequence(:slug) { |n| "slug_#{n}" }
+
   factory :country do
     factory :test_country do
       league
@@ -6,10 +8,12 @@ FactoryGirl.define do
   end
 
   factory :league do
+    slug { generate :slug }
     factory :test_league do
       country
-      after(:create) do |league|
-        create_list(:match, 10, league: league)
+      after(:build) do |league|
+        build_list(:match, 10, league: league)
+        build_list(:team, 3, league: league)
       end
     end
   end
@@ -21,9 +25,9 @@ FactoryGirl.define do
       season
       home_team
       away_team
-      after(:create) do |match|
-        create_list(:home_player, 11, match: match)
-        create_list(:away_player, 11, match: match)
+      after(:build) do |match|
+        build_list(:home_player, 11, match: match)
+        build_list(:away_player, 11, match: match)
       end
     end
   end
@@ -31,9 +35,9 @@ FactoryGirl.define do
   factory :player, aliases: %i(home_player away_player) do
     factory :test_player do
       player_stat
-      after(:create) do |player|
-        create_list(:home_match, 3, player: player)
-        create_list(:away_match, 3, player: player)
+      after(:build) do |player|
+        build_list(:home_match, 3, player: player)
+        build_list(:away_match, 3, player: player)
       end
     end
   end
@@ -46,18 +50,19 @@ FactoryGirl.define do
 
   factory :season do
     factory :test_season do
-      after(:create) do |season|
-        create_list(:match, 10, season: season)
+      after(:build) do |season|
+        build_list(:match, 10, season: season)
       end
     end
   end
 
   factory :team, aliases: %i(home_team away_team) do
+    short_name { generate :slug }
     factory :test_team do
       league
-      after(:create) do |team|
-        create_list(:home_match, 3, home_team: team)
-        create_list(:away_match, 3, away_team: team)
+      after(:build) do |team|
+        build_list(:home_match, 3, home_team: team)
+        build_list(:away_match, 3, away_team: team)
       end
     end
   end

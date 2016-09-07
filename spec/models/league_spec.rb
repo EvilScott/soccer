@@ -10,4 +10,8 @@ RSpec.describe League, type: :model do
   it 'has many matches' do
     expect(league.matches).to all be_a Match
   end
+
+  it 'has many teams' do
+    expect(league.teams).to all be_a Team
+  end
 end
