@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Match, type: :model do
-  let(:match) { build_stubbed :test_match }
+  let(:match) { create :test_match }
 
   it 'has a country' do
     expect(match.country).to be_a Country

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe LeaguesController, type: :controller do
-  let(:league) { build_stubbed :test_league }
+  let(:league) { create :test_league }
 
   describe 'GET #index' do
     it 'returns http success' do

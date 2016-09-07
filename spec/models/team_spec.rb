@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  let(:team) { build_stubbed :test_team }
+  let(:team) { create :test_team }
 
   it 'has home_matches' do
     expect(team.home_matches).to all be_a Match

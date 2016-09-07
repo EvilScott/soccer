@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TeamsController, type: :controller do
-  let(:team) { build_stubbed :test_team }
+  let(:team) { create :test_team }
 
   describe 'GET #index' do
     it 'returns http success' do
