@@ -4,12 +4,12 @@ load database
 
 with include drop, create tables, create indexes, reset sequences
 
-cast column country.id to serial,
-     column league.id to serial,
-     column match.id to serial,
-     column player.id to serial,
-     column player_stats.id to serial,
-     column team.id to serial,
+cast column country.id to integer,
+     column league.id to integer,
+     column match.id to integer,
+     column player.id to integer,
+     column player_stats.id to integer,
+     column team.id to integer,
      column player.height to float using float-to-string
 
 set work_mem to '16MB', maintenance_work_mem to '512 MB';

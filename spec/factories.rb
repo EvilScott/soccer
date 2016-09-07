@@ -54,6 +54,7 @@ FactoryGirl.define do
 
   factory :team, aliases: %i(home_team away_team) do
     factory :test_team do
+      league
       after(:create) do |team|
         create_list(:home_match, 3, home_team: team)
         create_list(:away_match, 3, away_team: team)

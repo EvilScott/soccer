@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907022141) do
+ActiveRecord::Schema.define(version: 20160907030309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "countries", id: :integer, default: -> { "nextval('country_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "countries", id: :integer, force: :cascade do |t|
     t.text   "name"
     t.string "slug"
     t.index ["slug"], name: "index_countries_on_slug", using: :btree
   end
 
-  create_table "leagues", id: :integer, default: -> { "nextval('league_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "leagues", id: :integer, force: :cascade do |t|
     t.bigint "country_id"
     t.text   "name"
     t.string "slug"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160907022141) do
     t.bigint "y"
   end
 
-  create_table "player_stats", force: :cascade do |t|
+  create_table "player_stats", id: :integer, force: :cascade do |t|
     t.bigint "player_fifa_api_id"
     t.bigint "player_id"
     t.text   "date_stat"
@@ -152,8 +152,10 @@ ActiveRecord::Schema.define(version: 20160907022141) do
   end
 
   create_table "teams", id: :bigint, force: :cascade do |t|
-    t.text "name"
-    t.text "short_name"
+    t.text    "name"
+    t.text    "short_name"
+    t.integer "league_id"
+    t.index ["league_id"], name: "index_teams_on_league_id", using: :btree
     t.index ["short_name"], name: "index_teams_on_short_name", using: :btree
   end
 
@@ -168,4 +170,5 @@ ActiveRecord::Schema.define(version: 20160907022141) do
   add_foreign_key "matches_home_players", "matches", name: "match_home_match_fk"
   add_foreign_key "matches_home_players", "players", name: "match_home_player_fk"
   add_foreign_key "player_stats", "players", name: "player_stats_player_fk"
+  add_foreign_key "teams", "leagues"
 end

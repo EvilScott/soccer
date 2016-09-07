@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
-  let(:player) { build :test_player }
+  let(:player) { build_stubbed :test_player }
 
   it 'has a player stat' do
     expect(player.player_stat).to be_a PlayerStat
