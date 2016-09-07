@@ -6,4 +6,9 @@ class Team < ActiveRecord::Base
   def to_param
     short_name
   end
+
+  def as_json(options = {})
+    options[:only] ||= %i(name short_name)
+    super
+  end
 end

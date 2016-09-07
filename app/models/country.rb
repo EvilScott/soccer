@@ -4,4 +4,9 @@ class Country < ActiveRecord::Base
   def to_param
     slug
   end
+
+  def as_json(options = {})
+    options[:only] ||= %i(name slug)
+    super
+  end
 end
