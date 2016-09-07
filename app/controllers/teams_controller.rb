@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
+    @teams = League.find_by_slug(params[:league_slug]).teams
     respond_to do |format|
       format.html
       format.json { render json: @teams }
