@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,29 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810220047) do
+ActiveRecord::Schema.define(version: 20160907022141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "countries", force: :cascade do |t|
-    t.text "name"
+  create_table "countries", id: :integer, default: -> { "nextval('country_id_seq'::regclass)" }, force: :cascade do |t|
+    t.text   "name"
+    t.string "slug"
+    t.index ["slug"], name: "index_countries_on_slug", using: :btree
   end
 
-  create_table "leagues", force: :cascade do |t|
-    t.integer "country_id", limit: 8
-    t.text    "name"
+  create_table "leagues", id: :integer, default: -> { "nextval('league_id_seq'::regclass)" }, force: :cascade do |t|
+    t.bigint "country_id"
+    t.text   "name"
+    t.string "slug"
+    t.index ["slug"], name: "index_leagues_on_slug", using: :btree
   end
 
-  create_table "matches", id: :bigserial, force: :cascade do |t|
-    t.integer "country_id",     limit: 8
-    t.integer "league_id",      limit: 8
-    t.integer "stage",          limit: 8
+  create_table "matches", id: :bigint, force: :cascade do |t|
+    t.bigint  "country_id"
+    t.bigint  "league_id"
+    t.bigint  "stage"
     t.text    "date"
-    t.integer "home_team_id",   limit: 8
-    t.integer "away_team_id",   limit: 8
-    t.integer "home_team_goal", limit: 8
-    t.integer "away_team_goal", limit: 8
+    t.bigint  "home_team_id"
+    t.bigint  "away_team_id"
+    t.bigint  "home_team_goal"
+    t.bigint  "away_team_goal"
     t.text    "goal"
     t.text    "shoton"
     t.text    "shotoff"
@@ -75,81 +78,83 @@ ActiveRecord::Schema.define(version: 20160810220047) do
     t.integer "season_id"
   end
 
-  create_table "matches_away_players", id: false, force: :cascade do |t|
-    t.integer "match_id",  limit: 8, null: false
-    t.integer "player_id", limit: 8, null: false
-    t.integer "x",         limit: 8
-    t.integer "y",         limit: 8
+  create_table "matches_away_players", primary_key: ["match_id", "player_id"], force: :cascade do |t|
+    t.bigint "match_id",  null: false
+    t.bigint "player_id", null: false
+    t.bigint "x"
+    t.bigint "y"
   end
 
-  create_table "matches_home_players", id: false, force: :cascade do |t|
-    t.integer "match_id",  limit: 8, null: false
-    t.integer "player_id", limit: 8, null: false
-    t.integer "x",         limit: 8
-    t.integer "y",         limit: 8
+  create_table "matches_home_players", primary_key: ["match_id", "player_id"], force: :cascade do |t|
+    t.bigint "match_id",  null: false
+    t.bigint "player_id", null: false
+    t.bigint "x"
+    t.bigint "y"
   end
 
   create_table "player_stats", force: :cascade do |t|
-    t.integer "player_fifa_api_id",  limit: 8
-    t.integer "player_id",           limit: 8
-    t.text    "date_stat"
-    t.integer "overall_rating",      limit: 8
-    t.integer "potential",           limit: 8
-    t.text    "preferred_foot"
-    t.text    "attacking_work_rate"
-    t.text    "defensive_work_rate"
-    t.integer "crossing",            limit: 8
-    t.integer "finishing",           limit: 8
-    t.integer "heading_accuracy",    limit: 8
-    t.integer "short_passing",       limit: 8
-    t.integer "volleys",             limit: 8
-    t.integer "dribbling",           limit: 8
-    t.integer "curve",               limit: 8
-    t.integer "free_kick_accuracy",  limit: 8
-    t.integer "long_passing",        limit: 8
-    t.integer "ball_control",        limit: 8
-    t.integer "acceleration",        limit: 8
-    t.integer "sprint_speed",        limit: 8
-    t.integer "agility",             limit: 8
-    t.integer "reactions",           limit: 8
-    t.integer "balance",             limit: 8
-    t.integer "shot_power",          limit: 8
-    t.integer "jumping",             limit: 8
-    t.integer "stamina",             limit: 8
-    t.integer "strength",            limit: 8
-    t.integer "long_shots",          limit: 8
-    t.integer "aggression",          limit: 8
-    t.integer "interceptions",       limit: 8
-    t.integer "positioning",         limit: 8
-    t.integer "vision",              limit: 8
-    t.integer "penalties",           limit: 8
-    t.integer "marking",             limit: 8
-    t.integer "standing_tackle",     limit: 8
-    t.integer "sliding_tackle",      limit: 8
-    t.integer "gk_diving",           limit: 8
-    t.integer "gk_handling",         limit: 8
-    t.integer "gk_kicking",          limit: 8
-    t.integer "gk_positioning",      limit: 8
-    t.integer "gk_reflexes",         limit: 8
+    t.bigint "player_fifa_api_id"
+    t.bigint "player_id"
+    t.text   "date_stat"
+    t.bigint "overall_rating"
+    t.bigint "potential"
+    t.text   "preferred_foot"
+    t.text   "attacking_work_rate"
+    t.text   "defensive_work_rate"
+    t.bigint "crossing"
+    t.bigint "finishing"
+    t.bigint "heading_accuracy"
+    t.bigint "short_passing"
+    t.bigint "volleys"
+    t.bigint "dribbling"
+    t.bigint "curve"
+    t.bigint "free_kick_accuracy"
+    t.bigint "long_passing"
+    t.bigint "ball_control"
+    t.bigint "acceleration"
+    t.bigint "sprint_speed"
+    t.bigint "agility"
+    t.bigint "reactions"
+    t.bigint "balance"
+    t.bigint "shot_power"
+    t.bigint "jumping"
+    t.bigint "stamina"
+    t.bigint "strength"
+    t.bigint "long_shots"
+    t.bigint "aggression"
+    t.bigint "interceptions"
+    t.bigint "positioning"
+    t.bigint "vision"
+    t.bigint "penalties"
+    t.bigint "marking"
+    t.bigint "standing_tackle"
+    t.bigint "sliding_tackle"
+    t.bigint "gk_diving"
+    t.bigint "gk_handling"
+    t.bigint "gk_kicking"
+    t.bigint "gk_positioning"
+    t.bigint "gk_reflexes"
+    t.index ["player_id", "player_fifa_api_id", "date_stat"], name: "idx_twocols", unique: true, using: :btree
   end
 
-  add_index "player_stats", ["player_id", "player_fifa_api_id", "date_stat"], name: "idx_twocols", unique: true, using: :btree
-
-  create_table "players", id: :bigserial, force: :cascade do |t|
-    t.text    "player_name"
-    t.integer "player_fifa_api_id", limit: 8
-    t.text    "birthday"
-    t.float   "height"
-    t.integer "weight",             limit: 8
+  create_table "players", id: :bigint, force: :cascade do |t|
+    t.text   "name"
+    t.bigint "player_fifa_api_id"
+    t.text   "birthday"
+    t.float  "height"
+    t.bigint "weight"
   end
 
-  create_table "seasons", id: :bigserial, force: :cascade do |t|
-    t.text "name"
+  create_table "seasons", id: :bigint, force: :cascade do |t|
+    t.text   "name"
+    t.string "slug"
+    t.index ["slug"], name: "index_seasons_on_slug", using: :btree
   end
 
-  create_table "teams", id: :bigserial, force: :cascade do |t|
+  create_table "teams", id: :bigint, force: :cascade do |t|
     t.text "name"
     t.text "short_name"
+    t.index ["short_name"], name: "index_teams_on_short_name", using: :btree
   end
 
   add_foreign_key "leagues", "countries", name: "league_country_fk"
