@@ -1,6 +1,8 @@
 class Country < ActiveRecord::Base
   has_one :league
 
+  default_scope { order(:name) }
+
   def to_param
     slug
   end

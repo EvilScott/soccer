@@ -3,6 +3,12 @@ class League < ActiveRecord::Base
   has_many :matches
   has_many :teams
 
+  default_scope { order(:name) }
+
+  def to_s
+    name
+  end
+
   def to_param
     slug
   end

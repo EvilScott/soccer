@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   def index
-    @teams = League.find_by_slug(params[:league_slug]).teams
+    @league = League.find_by_slug(params[:league_slug])
+    @teams = @league.teams
     respond_to do |format|
       format.html
       format.json { render json: @teams }
@@ -8,7 +9,8 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team = Team.find_by_short_name(params[:team_slug].upcase)
+    @league = League.find_by_slug(params[:league_slug])
+    @team = @league.teams.find_by_short_name(params[:team_slug].upcase)
     respond_to do |format|
       format.html
       format.json { render json: @team }

@@ -1,2 +1,2 @@
-<h1>Leagues#show</h1>
-<p>Find me in app/views/leagues/show.html.erb</p>
+<h1><%= @league %></h1>
+<p><%= link_to "#{@league} teams", teams_path(@league) %></p>
